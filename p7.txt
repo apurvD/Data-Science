@@ -1,0 +1,104 @@
+
+import nltk
+ import re
+
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
+
+text= "Tokenization is the first step in text analytics. The process of breaking down a text paragraph into smaller chunks such as words or sentences is called Tokenization."
+
+#Sentence Tokenization
+from nltk.tokenize import sent_tokenize 
+tokenized_text= sent_tokenize(text) 
+print(tokenized_text)
+
+#Word Tokenization
+from nltk.tokenize import word_tokenize 
+tokenized_word=word_tokenize(text) 
+print(tokenized_word)
+
+# Print stop words of English
+from nltk.corpus import stopwords 
+stop_words=set(stopwords.words("english")) 
+print(stop_words)
+
+text= "How to remove stop words with NLTK library in Python?" text= re.sub('[^a-zA-Z]', ' ',text)
+
+tokens = word_tokenize(text.lower()) 
+filtered_text=[]
+for w in tokens:
+	if w not in stop_words:
+		filtered_text.append(w) 
+print ("Tokenized Sentence:",tokens) 
+print ("Filtered Sentence:",filtered_text)
+
+from nltk.stem import PorterStemmer 
+e_words= ["wait", "waiting", "waited", "waits"] 
+ps =PorterStemmer()
+for w in e_words:
+	rootWord=ps.stem(w) 
+print(rootWord)
+
+from nltk.stem import WordNetLemmatizer 
+wordnet_lemmatizer = WordNetLemmatizer()
+ 
+text = "studies studying cries cry" tokenization = nltk.word_tokenize(text) 
+for w in tokenization:
+	print("Lemma for {} is {}".format(w, wordnet_lemmatizer.lemmatize(w)))
+
+import nltk
+from nltk.tokenize import word_tokenize 
+data="The pink sweater fit her perfectly"
+words=word_tokenize(data)
+
+for word in words:
+	print(nltk.pos_tag([word]))
+
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+d0 = 'Jupiter is the largest planet'
+d1 = 'Mars is the fourth planet from the Sun' string = [d0, d1]
+tfidf = TfidfVectorizer()
+result = tfidf.fit_transform(string) 
+print('\nWord Indices: ') 
+print(tfidf.vocabulary_) 
+print('\ntfidf values: ') 
+print(result)
+Output:
+[nltk_data] Downloading package punkt to /home/sakshi/nltk_data... [nltk_data] Package punkt is already up-to-date!
+[nltk_data] Downloading package stopwords to /home/sakshi/nltk_data... [nltk_data] Package stopwords is already up-to-date!
+[nltk_data] Downloading package wordnet to /home/sakshi/nltk_data... [nltk_data] Package wordnet is already up-to-date!
+[nltk_data] Downloading package averaged_perceptron_tagger to [nltk_data]	/home/sakshi/nltk_data...
+[nltk_data] Package averaged_perceptron_tagger is already up-to- [nltk_data]	date!
+['Tokenization is the first step in text analytics.', 'The process of breaking down a text paragraph into smaller chunks such as words or sentences is called Tokenization.']
+['Tokenization', 'is', 'the', 'first', 'step', 'in', 'text', 'analytics', '.', 'The', 'process', 'of', 'breaking',
+'down', 'a', 'text', 'paragraph', 'into', 'smaller', 'chunks', 'such', 'as', 'words', 'or', 'sentences', 'is', 'called', 'Tokenization', '.']
+{'out', 'did', 'both', 'ma', 'y', 'all', 'at', 'it', 'as', 'yourself', 'now', 'some', "didn't", 'on', 'any', 'the',
+'those', 'aren', 'you', 'were', 'further', 'is', 'who', 'but', "it's", 'has', 'what', 'have', 'nor', 'each', 'am',
+'had', 'not', "needn't", 'ain', 'she', "wouldn't", 'yourselves', "mustn't", 'these', 'weren', 'through',
+'been', 'here', "you've", 'of', 'couldn', 'itself', 'just', 'needn', 'having', 'was', 'his', 'off', 'by', 'ours',
+'where', 'are', 'up', 'don', "you'll", 'few', 've', 'him', 'such', 'its', 'an', 'how', 'haven', 'because',
+"you'd", 'doesn', "doesn't", 'shan', 'o', 'in', 'for', "wasn't", 'herself', 't', 'my', 'her', 'doing', 'into',
+ 
+'shouldn', 'wasn', "shouldn't", 'me', 'a', 'this', "that'll", 'there', 'm', "mightn't", 'until', "should've",
+'against', "won't", 'with', 'over', 'once', "hasn't", "haven't", "don't", 'isn', 'wouldn', 'more', "isn't", 'to',
+'after', 'that', 'won', 'does', 'no', 'before', 'under', 'mustn', 'other', 'theirs', 'he', 'down', 's', 'can',
+"you're", 'they', 'll', 'do', 'why', 'them', 'didn', 'if', "she's", 'between', 'from', 'again', 'most', 'below',
+'themselves', 're', 'while', 'we', 'only', 'than', 'hasn', 'our', "aren't", "weren't", 'be', 'same', 'should',
+'or', 'mightn', 'myself', "shan't", 'above', 'then', 'during', 'when', "couldn't", 'yours', 'your', 'about', 'i',
+'and', 'hadn', 'so', 'too', 'whom', "hadn't", 'will', 'their', 'own', 'being', 'which', 'hers', 'd', 'very', 'himself', 'ourselves'}
+Tokenized Sentence: ['how', 'to', 'remove', 'stop', 'words', 'with', 'nltk', 'library', 'in', 'python'] Filtered Sentence: ['remove', 'stop', 'words', 'nltk', 'library', 'python']
+wait
+Lemma for studies is study Lemma for studying is studying Lemma for cries is cry
+Lemma for cry is cry [('The', 'DT')]
+[('pink', 'NN')]
+[('sweater', 'NN')]
+[('fit', 'NN')]
+[('her', 'PRP$')]
+[('perfectly', 'RB')]
+
+Word Indices:
+{'jupiter': 3, 'is': 2, 'the': 8, 'largest': 4, 'planet': 6, 'mars': 5, 'fourth': 0, 'from': 1, 'sun': 7} tfidf values:
